@@ -1,0 +1,13 @@
+# Wallet addresses used as "exchange reserves" for this DEMO.
+# These are public, well-known addresses pulled from public block explorers.
+# This project does not audit any real exchange.
+BTC:
+  - "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa"  # Bitcoin genesis address
+  - "1BoatSLRHtKNngkdXEeobR76b53LETtpyT"  # well-known public vanity address
+ETH:
+  - "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"  # vitalik.eth public address
+USDC:
+  - "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+USDT:
+  - "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+

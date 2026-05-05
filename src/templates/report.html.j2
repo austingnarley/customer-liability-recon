@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Customer Liability Coverage Reconciliation - {{ as_of }}</title>
+  <style>
+    :root {
+      --navy: #0b1f3a;
+      --ink: #172033;
+      --muted: #637083;
+      --line: #d8dee8;
+      --ok: #176b45;
+      --watch: #9a6700;
+      --breach: #b42318;
+      --soft-ok: #e7f5ee;
+      --soft-watch: #fff4d6;
+      --soft-breach: #fde8e7;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: #ffffff;
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.45;
+    }
+    header {
+      background: var(--navy);
+      color: #ffffff;
+      padding: 28px 36px;
+    }
+    header h1 {
+      margin: 0 0 8px;
+      font-size: 26px;
+      letter-spacing: 0;
+    }
+    header p {
+      margin: 0;
+      color: #dbe5f2;
+      font-size: 13px;
+    }
+    main { padding: 28px 36px 36px; }
+    section { margin-bottom: 32px; }
+    h2 {
+      color: var(--navy);
+      font-size: 18px;
+      margin: 0 0 12px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid var(--line);
+      font-size: 13px;
+    }
+    th {
+      background: #f4f7fb;
+      color: var(--navy);
+      text-align: left;
+      border-bottom: 1px solid var(--line);
+      padding: 9px 10px;
+      font-weight: 700;
+    }
+    td {
+      border-bottom: 1px solid var(--line);
+      padding: 9px 10px;
+      vertical-align: top;
+    }
+    .num { text-align: right; font-variant-numeric: tabular-nums; }
+    .status {
+      text-align: center;
+      font-weight: 700;
+      border-radius: 4px;
+    }
+    .OK { color: var(--ok); background: var(--soft-ok); }
+    .WATCH { color: var(--watch); background: var(--soft-watch); }
+    .BREACH { color: var(--breach); background: var(--soft-breach); }
+    .panel {
+      border: 1px solid var(--line);
+      padding: 16px;
+      margin-bottom: 14px;
+      border-radius: 6px;
+    }
+    .panel h3 {
+      margin: 0 0 10px;
+      color: var(--navy);
+      font-size: 15px;
+    }
+    .address {
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-size: 12px;
+      overflow-wrap: anywhere;
+    }
+    footer {
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 12px;
+      padding-top: 16px;
+    }
+    @media print {
+      header { background: #ffffff; color: var(--navy); border-bottom: 2px solid var(--navy); }
+      header p { color: var(--muted); }
+      main { padding: 20px 0; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Customer Liability Coverage Reconciliation</h1>
+    <p>As of {{ as_of }} · Generated {{ generated_at }}</p>
+  </header>
+  <main>
+    <section>
+      <h2>Executive Summary</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Asset</th>
+            <th class="num">Customer Liabilities</th>
+            <th class="num">Customer Count</th>
+            <th class="num">On-Chain Reserves</th>
+            <th class="num">Delta</th>
+            <th class="num">Coverage Ratio</th>
+            <th class="num">USD Price</th>
+            <th class="num">USD Value at Risk</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for row in rows %}
+          <tr>
+            <td>{{ row.asset }}</td>
+            <td class="num">{{ row.customer_liabilities|asset_amount(row.asset) }}</td>
+            <td class="num">{{ "{:,}".format(row.customer_count) }}</td>
+            <td class="num">{{ row.on_chain_reserves|asset_amount(row.asset) }}</td>
+            <td class="num">{{ row.delta|asset_amount(row.asset) }}</td>
+            <td class="num">{{ row.coverage_ratio|ratio }}</td>
+            <td class="num">{{ row.usd_price|usd }}</td>
+            <td class="num">{{ row.usd_value_at_risk|usd }}</td>
+            <td class="status {{ row.status }}">{{ row.status }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Per-Asset Reserve Detail</h2>
+      {% for row in rows %}
+        <div class="panel">
+          <h3>{{ row.asset }}</h3>
+          <table>
+            <thead>
+              <tr><th>Wallet Address</th><th class="num">Balance</th></tr>
+            </thead>
+            <tbody>
+            {% for detail in row.reserve_details %}
+              <tr>
+                <td class="address">{{ detail.address }}</td>
+                <td class="num">{{ detail.balance|asset_amount(row.asset) }}</td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% endfor %}
+    </section>
+
+    <section>
+      <h2>Top Customers by Exposure</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Customer ID</th>
+            <th>Asset</th>
+            <th class="num">Balance</th>
+            <th class="num">USD Equivalent</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for customer in top_customers %}
+          <tr>
+            <td>{{ customer.customer_id }}</td>
+            <td>{{ customer.asset }}</td>
+            <td class="num">{{ customer.balance|asset_amount(customer.asset) }}</td>
+            <td class="num">{{ customer.usd_value|usd }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </section>
+
+    <footer>
+      This is a portfolio demonstration. The customer ledger is synthetic. Wallet addresses
+      are public block-explorer demo data and do not represent any real exchange's reserves.
+    </footer>
+  </main>
+</body>
+</html>
+

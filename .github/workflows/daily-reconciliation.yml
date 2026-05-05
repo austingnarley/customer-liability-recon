@@ -1,0 +1,36 @@
+name: Daily Reconciliation
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 13 * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: make install
+      - name: Run reconciliation demo
+        env:
+          ETHERSCAN_API_KEY: ${{ secrets.ETHERSCAN_API_KEY }}
+        run: python -m src.cli demo --as-of "$(date -u +%F)"
+      - name: Commit report outputs
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f output/*.html output/*.xlsx data/customer_ledger.csv
+          if git diff --cached --quiet; then
+            echo "No reconciliation changes to commit."
+          else
+            git commit -m "chore: daily reconciliation $(date -u +%F)"
+            git push
+          fi
+
