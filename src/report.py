@@ -57,7 +57,7 @@ def render_xlsx(
     _write_reserves(workbook.create_sheet("Reserves"), rows)
     _write_methodology(workbook.create_sheet("Methodology"))
     for sheet in workbook.worksheets:
-        sheet.freeze_panes = "A2"
+        sheet.freeze_panes = "A3" if sheet.title == "Summary" else "A2"
         _autosize_columns(sheet)
     out_path.parent.mkdir(parents=True, exist_ok=True)
     workbook.save(out_path)
@@ -145,6 +145,18 @@ def _write_summary(sheet: Any, rows: list[ReconciliationRow], as_of: date) -> No
         f"F3:F{2 + len(rows)}",
         CellIsRule(operator="lessThan", formula=["0.99"], fill=_fill("FDE8E7")),
     )
+    sheet.conditional_formatting.add(
+        f"I3:I{2 + len(rows)}",
+        CellIsRule(operator="equal", formula=['"OK"'], fill=_fill("E7F5EE")),
+    )
+    sheet.conditional_formatting.add(
+        f"I3:I{2 + len(rows)}",
+        CellIsRule(operator="equal", formula=['"WATCH"'], fill=_fill("FFF4D6")),
+    )
+    sheet.conditional_formatting.add(
+        f"I3:I{2 + len(rows)}",
+        CellIsRule(operator="equal", formula=['"BREACH"'], fill=_fill("FDE8E7")),
+    )
 
 
 def _write_liabilities(sheet: Any, ledger_path: Path) -> None:
@@ -211,10 +223,10 @@ def _fill(color: str) -> PatternFill:
     return PatternFill(fill_type="solid", fgColor=color)
 
 
-def _decimal_to_number(value: Decimal) -> int | float:
+def _decimal_to_number(value: Decimal) -> int | Decimal:
     if value == value.to_integral_value():
         return int(value)
-    return float(value)
+    return value
 
 
 def _format_asset_amount(value: Decimal, asset: str) -> str:

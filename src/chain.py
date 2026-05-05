@@ -5,6 +5,7 @@ import os
 import threading
 import time
 from decimal import Decimal
+from hashlib import sha256
 from pathlib import Path
 from typing import Any
 
@@ -134,13 +135,18 @@ def _get_text(
     if prepared.url is None:
         raise ChainFetchError(f"Could not prepare request URL for {url}")
 
-    cached = cache.get(prepared.url)
+    cache_key = _cache_key(prepared.url)
+    cached = cache.get(cache_key)
     if cached is not None:
         return cached
 
     response = _request_with_retry(prepared.url)
-    cache.set(prepared.url, response, ttl_seconds)
+    cache.set(cache_key, response, ttl_seconds)
     return response
+
+
+def _cache_key(url: str) -> str:
+    return f"GET:{sha256(url.encode('utf-8')).hexdigest()}"
 
 
 @retry(

@@ -13,7 +13,7 @@
 
 ## What it does
 
-1. Aggregates customer liabilities by asset from a 10,000-row synthetic ledger
+1. Aggregates customer liabilities by asset from a 10,000-customer synthetic ledger
    using DuckDB SQL.
 2. Pulls live reserve-wallet balances from public block explorers
    (mempool.space for BTC, Etherscan for ETH and ERC-20s).
@@ -95,4 +95,3 @@ exceptions, and produce evidence that a reviewer can understand quickly.
 ## License
 
 MIT
-

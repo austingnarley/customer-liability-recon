@@ -4,6 +4,7 @@ import argparse
 import os
 import sys
 from datetime import date
+from decimal import Decimal
 from pathlib import Path
 
 from dateutil.parser import isoparse
@@ -130,7 +131,7 @@ def _print_summary(rows: list[ReconciliationRow]) -> None:
     console.print(table)
 
 
-def _format_asset_balance(value, asset: str) -> str:
+def _format_asset_balance(value: Decimal, asset: str) -> str:
     return f"{value:,.8f}" if asset in {"BTC", "ETH"} else f"{value:,.2f}"
 
 

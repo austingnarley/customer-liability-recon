@@ -40,6 +40,8 @@ def test_render_xlsx_creates_expected_sheets_and_values(tmp_path, fixtures_dir) 
 
     workbook = load_workbook(out_path)
     assert workbook.sheetnames == ["Summary", "Liabilities", "Reserves", "Methodology"]
+    assert workbook["Summary"].freeze_panes == "A3"
+    assert workbook["Liabilities"].freeze_panes == "A2"
     assert workbook["Summary"]["A3"].value == "BTC"
     assert workbook["Summary"]["I3"].value == "OK"
     assert workbook["Reserves"]["A2"].value == "BTC"
