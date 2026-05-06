@@ -42,7 +42,7 @@ def _build_parser() -> argparse.ArgumentParser:
     subparsers = parser.add_subparsers(dest="command", required=True)
 
     gen = subparsers.add_parser("generate-ledger", help="Generate the synthetic customer ledger")
-    gen.add_argument("--customers", type=int, default=10000)
+    gen.add_argument("--customers", type=int, default=100)
     gen.add_argument("--seed", type=int, default=42)
     gen.add_argument("--as-of", type=_parse_date, default=date.today())
     gen.set_defaults(func=_generate_ledger_command)
@@ -88,7 +88,7 @@ def _report_command(args: argparse.Namespace) -> None:
 
 
 def _demo_command(args: argparse.Namespace) -> None:
-    generate_ledger(customers=10000, seed=42, as_of=args.as_of, out_path=DEFAULT_LEDGER)
+    generate_ledger(customers=100, seed=42, as_of=args.as_of, out_path=DEFAULT_LEDGER)
     console.print(f"[green]Generated synthetic ledger:[/] {DEFAULT_LEDGER}")
     rows = _reconcile_command(args)
     _render_requested_reports(rows, args.as_of, "both")

@@ -11,10 +11,10 @@ import pandas as pd
 ASSETS = ("BTC", "ETH", "USDC", "USDT")
 HOLDER_RATES = {"BTC": 0.40, "ETH": 0.50, "USDC": 0.60, "USDT": 0.30}
 TARGET_TOTALS = {
-    "BTC": Decimal("140"),
-    "ETH": Decimal("8400"),
-    "USDC": Decimal("12400000"),
-    "USDT": Decimal("4200000"),
+    "BTC": Decimal("1"),
+    "ETH": Decimal("50"),
+    "USDC": Decimal("121000"),
+    "USDT": Decimal("5000"),
 }
 BALANCE_QUANTUM = {
     "BTC": Decimal("0.00000001"),

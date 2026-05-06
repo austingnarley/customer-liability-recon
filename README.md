@@ -7,13 +7,13 @@
 > Built as a portfolio demonstration to mirror the daily safeguarding workflow
 > at a regulated crypto exchange. Synthetic data; not an audit of any real entity.
 
-[![CI](https://github.com/<operator>/customer-liability-recon/actions/workflows/ci.yml/badge.svg)](https://github.com/<operator>/customer-liability-recon/actions/workflows/ci.yml)
+[![CI](https://github.com/austingnarley/customer-liability-recon/actions/workflows/ci.yml/badge.svg)](https://github.com/austingnarley/customer-liability-recon/actions/workflows/ci.yml)
 ![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-0b1f3a.svg)
 
 ## What it does
 
-1. Aggregates customer liabilities by asset from a 10,000-customer synthetic ledger
+1. Aggregates customer liabilities by asset from a 100-customer synthetic ledger
    using DuckDB SQL.
 2. Pulls live reserve-wallet balances from public block explorers
    (mempool.space for BTC, Etherscan for ETH and ERC-20s).
@@ -40,7 +40,7 @@ flowchart LR
 ## Run it locally
 
 ```bash
-git clone https://github.com/<operator>/customer-liability-recon.git
+git clone https://github.com/austingnarley/customer-liability-recon.git
 cd customer-liability-recon
 python3 -m venv .venv
 source .venv/bin/activate
@@ -87,10 +87,11 @@ and force-adds report files because local generated reports are ignored.
 
 ## Why I built this
 
-I built this portfolio demonstration to connect bank operations experience with
-crypto-native treasury controls. The project mirrors the daily muscle of a
-regulated operations team: gather source data, reconcile balances, surface
-exceptions, and produce evidence that a reviewer can understand quickly.
+After four years in bank and payments operations at MUFG, U.S. Bank, and
+Escrow.com, I wanted a hands-on artifact that connects traditional
+reconciliation rigor to on-chain reserve verification. This project is what a
+daily safeguarding report might look like if the "cash held in bank accounts"
+line were replaced with live block-explorer data.
 
 ## License
 
