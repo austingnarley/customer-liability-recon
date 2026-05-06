@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Customer Liability Coverage Reconciliation</title>
+  <style>
+    :root {
+      --navy: #0b1f3a;
+      --ink: #172033;
+      --muted: #637083;
+      --line: #d8dee8;
+      --paper: #ffffff;
+      --band: #f5f7fb;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.5;
+    }
+    header {
+      background: var(--navy);
+      color: #fff;
+      padding: 52px 28px;
+    }
+    .wrap {
+      max-width: 1040px;
+      margin: 0 auto;
+    }
+    h1 {
+      margin: 0 0 14px;
+      max-width: 780px;
+      font-size: clamp(32px, 5vw, 54px);
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+    header p {
+      margin: 0;
+      max-width: 740px;
+      color: #dbe5f2;
+      font-size: 18px;
+    }
+    main {
+      padding: 34px 28px 48px;
+    }
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 24px 0 0;
+    }
+    a.button {
+      display: inline-block;
+      color: #fff;
+      background: #225ea8;
+      padding: 10px 14px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 14px;
+    }
+    a.secondary {
+      color: var(--navy);
+      background: #eaf1fb;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+      margin: 30px 0;
+    }
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 18px;
+      background: #fff;
+    }
+    .card h2 {
+      margin: 0 0 8px;
+      color: var(--navy);
+      font-size: 18px;
+    }
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .screenshot {
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      overflow: hidden;
+      background: var(--band);
+    }
+    .screenshot img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    footer {
+      margin-top: 28px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    @media (max-width: 760px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <h1>Customer Liability Coverage Reconciliation</h1>
+      <p>
+        A Python portfolio demonstration that compares a synthetic customer-liability
+        ledger against public on-chain wallet balances, computes coverage ratios,
+        and renders review-ready treasury reports.
+      </p>
+      <div class="actions">
+        <a class="button" href="https://github.com/austingnarley/customer-liability-recon">View Repository</a>
+        <a class="button secondary" href="architecture.html">Architecture Notes</a>
+      </div>
+    </div>
+  </header>
+  <main>
+    <div class="wrap">
+      <div class="grid">
+        <section class="card">
+          <h2>Liability Aggregation</h2>
+          <p>Generates a deterministic synthetic ledger and aggregates customer balances by asset with DuckDB SQL.</p>
+        </section>
+        <section class="card">
+          <h2>Reserve Checks</h2>
+          <p>Fetches public BTC, ETH, USDC, and USDT balances from mempool.space and Etherscan.</p>
+        </section>
+        <section class="card">
+          <h2>Exception Reporting</h2>
+          <p>Flags OK/WATCH/BREACH statuses and renders both an HTML dashboard and Excel workbook.</p>
+        </section>
+      </div>
+      <div class="screenshot">
+        <img src="sample_report_screenshot.png" alt="Sample reconciliation report screenshot">
+      </div>
+      <footer>
+        This is a portfolio demonstration. The customer ledger is synthetic, public wallets are demo data,
+        and this is not an audit of any real exchange.
+      </footer>
+    </div>
+  </main>
+</body>
+</html>
+

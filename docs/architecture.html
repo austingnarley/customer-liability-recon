@@ -1,0 +1,20 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>CLCR Architecture</title><style>body{font-family:Arial,Helvetica,sans-serif;max-width:900px;margin:40px auto;padding:0 24px;color:#172033;line-height:1.55}h1,h2{color:#0b1f3a}pre{background:#f5f7fb;border:1px solid #d8dee8;border-radius:6px;padding:16px;overflow:auto}a{color:#225ea8}</style></head><body><p><a href="index.html">Back to project page</a></p><h1>Architecture</h1>
+<p>Customer Liability Coverage Reconciliation is a compact portfolio demonstration of a daily treasury control: compare synthetic customer liabilities to public on-chain reserve balances, then produce exception-ready reports.</p>
+<pre>Diagram source omitted in static page; see repository README for rendered Mermaid.</pre>
+<p>flowchart LR</p>
+<p>    ledger["data/customer_ledger.csv<br/>synthetic liabilities"] --> aggregate["DuckDB liability summary"]</p>
+<p>    prices["data/price_snapshots.csv<br/>static USD prices"] --> reconcile["reconcile.py"]</p>
+<p>    wallets["config/wallets.yaml<br/>public demo wallets"] --> chain["chain.py<br/>mempool.space + Etherscan"]</p>
+<p>    chain --> reconcile</p>
+<p>    aggregate --> reconcile</p>
+<p>    reconcile --> html["output/recon_DATE.html"]</p>
+<p>    reconcile --> xlsx["output/recon_DATE.xlsx"]</p>
+<pre>Diagram source omitted in static page; see repository README for rendered Mermaid.</pre>
+<h2>Components</h2>
+<p>- `ledger.py` generates and validates the synthetic customer ledger, then delegates liability aggregation to `src/sql/liability_summary.sql`.</p>
+<p>- `chain.py` fetches BTC, ETH, USDC, and USDT balances from public block-explorer APIs with retry, rate limiting, and a SQLite response cache.</p>
+<p>- `reconcile.py` converts liabilities, reserves, and static prices into coverage rows with OK/WATCH/BREACH status.</p>
+<p>- `report.py` renders the same reconciliation into a print-friendly HTML dashboard and an Excel workbook.</p>
+<h2>Control Framing</h2>
+<p>This is not a real exchange audit. The customer ledger is synthetic, the wallets are public demo addresses, and the prices are static. The goal is to mirror the shape of a regulated treasury workflow: source data, reconcile, flag exceptions, preserve evidence, and make the output reviewable by operations and finance stakeholders.</p>
+</body></html>
