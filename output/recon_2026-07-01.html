@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Customer Liability Coverage Reconciliation - 2026-07-01</title>
+  <style>
+    :root {
+      --navy: #0b1f3a;
+      --ink: #172033;
+      --muted: #637083;
+      --line: #d8dee8;
+      --ok: #176b45;
+      --watch: #9a6700;
+      --breach: #b42318;
+      --soft-ok: #e7f5ee;
+      --soft-watch: #fff4d6;
+      --soft-breach: #fde8e7;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: #ffffff;
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.45;
+    }
+    header {
+      background: var(--navy);
+      color: #ffffff;
+      padding: 28px 36px;
+    }
+    header h1 {
+      margin: 0 0 8px;
+      font-size: 26px;
+      letter-spacing: 0;
+    }
+    header p {
+      margin: 0;
+      color: #dbe5f2;
+      font-size: 13px;
+    }
+    main { padding: 28px 36px 36px; }
+    section { margin-bottom: 32px; }
+    h2 {
+      color: var(--navy);
+      font-size: 18px;
+      margin: 0 0 12px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid var(--line);
+      font-size: 13px;
+    }
+    th {
+      background: #f4f7fb;
+      color: var(--navy);
+      text-align: left;
+      border-bottom: 1px solid var(--line);
+      padding: 9px 10px;
+      font-weight: 700;
+    }
+    td {
+      border-bottom: 1px solid var(--line);
+      padding: 9px 10px;
+      vertical-align: top;
+    }
+    .num { text-align: right; font-variant-numeric: tabular-nums; }
+    .status {
+      text-align: center;
+      font-weight: 700;
+      border-radius: 4px;
+    }
+    .OK { color: var(--ok); background: var(--soft-ok); }
+    .WATCH { color: var(--watch); background: var(--soft-watch); }
+    .BREACH { color: var(--breach); background: var(--soft-breach); }
+    .panel {
+      border: 1px solid var(--line);
+      padding: 16px;
+      margin-bottom: 14px;
+      border-radius: 6px;
+    }
+    .panel h3 {
+      margin: 0 0 10px;
+      color: var(--navy);
+      font-size: 15px;
+    }
+    .address {
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-size: 12px;
+      overflow-wrap: anywhere;
+    }
+    footer {
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 12px;
+      padding-top: 16px;
+    }
+    @media print {
+      header { background: #ffffff; color: var(--navy); border-bottom: 2px solid var(--navy); }
+      header p { color: var(--muted); }
+      main { padding: 20px 0; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Customer Liability Coverage Reconciliation</h1>
+    <p>As of 2026-07-01 · Generated 2026-07-01 13:50:43 UTC</p>
+  </header>
+  <main>
+    <section>
+      <h2>Executive Summary</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Asset</th>
+            <th class="num">Customer Liabilities</th>
+            <th class="num">Customer Count</th>
+            <th class="num">On-Chain Reserves</th>
+            <th class="num">Delta</th>
+            <th class="num">Coverage Ratio</th>
+            <th class="num">USD Price</th>
+            <th class="num">USD Value at Risk</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+        
+          <tr>
+            <td>BTC</td>
+            <td class="num">1.00000000</td>
+            <td class="num">40</td>
+            <td class="num">57.22062915</td>
+            <td class="num">56.22062915</td>
+            <td class="num">5722.063%</td>
+            <td class="num">$67,500.00</td>
+            <td class="num">$0.00</td>
+            <td class="status OK">OK</td>
+          </tr>
+        
+          <tr>
+            <td>ETH</td>
+            <td class="num">50.00000000</td>
+            <td class="num">50</td>
+            <td class="num">5.69509540</td>
+            <td class="num">-44.30490460</td>
+            <td class="num">11.390%</td>
+            <td class="num">$3,100.00</td>
+            <td class="num">$137,345.20</td>
+            <td class="status BREACH">BREACH</td>
+          </tr>
+        
+          <tr>
+            <td>USDC</td>
+            <td class="num">121,000.00</td>
+            <td class="num">60</td>
+            <td class="num">36.77</td>
+            <td class="num">-120,963.23</td>
+            <td class="num">0.030%</td>
+            <td class="num">$1.00</td>
+            <td class="num">$120,963.23</td>
+            <td class="status BREACH">BREACH</td>
+          </tr>
+        
+          <tr>
+            <td>USDT</td>
+            <td class="num">5,000.00</td>
+            <td class="num">30</td>
+            <td class="num">290.25</td>
+            <td class="num">-4,709.75</td>
+            <td class="num">5.805%</td>
+            <td class="num">$1.00</td>
+            <td class="num">$4,709.75</td>
+            <td class="status BREACH">BREACH</td>
+          </tr>
+        
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Per-Asset Reserve Detail</h2>
+      
+        <div class="panel">
+          <h3>BTC</h3>
+          <table>
+            <thead>
+              <tr><th>Wallet Address</th><th class="num">Balance</th></tr>
+            </thead>
+            <tbody>
+            
+              <tr>
+                <td class="address">1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa</td>
+                <td class="num">57.22062915</td>
+              </tr>
+            
+              <tr>
+                <td class="address">1BoatSLRHtKNngkdXEeobR76b53LETtpyT</td>
+                <td class="num">0.00000000</td>
+              </tr>
+            
+            </tbody>
+          </table>
+        </div>
+      
+        <div class="panel">
+          <h3>ETH</h3>
+          <table>
+            <thead>
+              <tr><th>Wallet Address</th><th class="num">Balance</th></tr>
+            </thead>
+            <tbody>
+            
+              <tr>
+                <td class="address">0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045</td>
+                <td class="num">5.69509540</td>
+              </tr>
+            
+            </tbody>
+          </table>
+        </div>
+      
+        <div class="panel">
+          <h3>USDC</h3>
+          <table>
+            <thead>
+              <tr><th>Wallet Address</th><th class="num">Balance</th></tr>
+            </thead>
+            <tbody>
+            
+              <tr>
+                <td class="address">0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045</td>
+                <td class="num">36.77</td>
+              </tr>
+            
+            </tbody>
+          </table>
+        </div>
+      
+        <div class="panel">
+          <h3>USDT</h3>
+          <table>
+            <thead>
+              <tr><th>Wallet Address</th><th class="num">Balance</th></tr>
+            </thead>
+            <tbody>
+            
+              <tr>
+                <td class="address">0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045</td>
+                <td class="num">290.25</td>
+              </tr>
+            
+            </tbody>
+          </table>
+        </div>
+      
+    </section>
+
+    <section>
+      <h2>Top Customers by Exposure</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Customer ID</th>
+            <th>Asset</th>
+            <th class="num">Balance</th>
+            <th class="num">USD Equivalent</th>
+          </tr>
+        </thead>
+        <tbody>
+        
+          <tr>
+            <td>C-000098</td>
+            <td>ETH</td>
+            <td class="num">20.00000000</td>
+            <td class="num">$62,000.00</td>
+          </tr>
+        
+          <tr>
+            <td>C-000024</td>
+            <td>USDC</td>
+            <td class="num">48,400.00</td>
+            <td class="num">$48,400.00</td>
+          </tr>
+        
+          <tr>
+            <td>C-000042</td>
+            <td>BTC</td>
+            <td class="num">0.40000000</td>
+            <td class="num">$27,000.00</td>
+          </tr>
+        
+          <tr>
+            <td>C-000038</td>
+            <td>ETH</td>
+            <td class="num">3.21614513</td>
+            <td class="num">$9,970.05</td>
+          </tr>
+        
+          <tr>
+            <td>C-000066</td>
+            <td>ETH</td>
+            <td class="num">2.16320231</td>
+            <td class="num">$6,705.93</td>
+          </tr>
+        
+          <tr>
+            <td>C-000004</td>
+            <td>ETH</td>
+            <td class="num">2.06039779</td>
+            <td class="num">$6,387.23</td>
+          </tr>
+        
+          <tr>
+            <td>C-000028</td>
+            <td>ETH</td>
+            <td class="num">1.90196487</td>
+            <td class="num">$5,896.09</td>
+          </tr>
+        
+          <tr>
+            <td>C-000034</td>
+            <td>ETH</td>
+            <td class="num">1.75745573</td>
+            <td class="num">$5,448.11</td>
+          </tr>
+        
+          <tr>
+            <td>C-000012</td>
+            <td>ETH</td>
+            <td class="num">1.67564533</td>
+            <td class="num">$5,194.50</td>
+          </tr>
+        
+          <tr>
+            <td>C-000093</td>
+            <td>USDC</td>
+            <td class="num">4,819.82</td>
+            <td class="num">$4,819.82</td>
+          </tr>
+        
+        </tbody>
+      </table>
+    </section>
+
+    <footer>
+      This is a portfolio demonstration. The customer ledger is synthetic. Wallet addresses
+      are public block-explorer demo data and do not represent any real exchange's reserves.
+    </footer>
+  </main>
+</body>
+</html>
